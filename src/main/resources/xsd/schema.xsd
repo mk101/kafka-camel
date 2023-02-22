@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="/jaxb/gen"
+        xmlns:userns="/jaxb/gen"
+        elementFormDefault="qualified">
+
+    <element name="Session" type="userns:Session"/>
+    <element name="User" type="userns:User"/>
+    <element name="Service" type="userns:Service"/>
+
+    <complexType name="Session">
+        <sequence>
+            <element name="user" type="userns:User"/>
+            <element name="service" type="userns:Service"/>
+            <element name="start" type="dateTime"/>
+            <element name="end" type="dateTime"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="User">
+        <sequence>
+            <element name="id" type="int"/>
+            <element name="name" type="string"/>
+            <element name="email">
+                <simpleType>
+                    <restriction base="string">
+                        <pattern value="[^@]+@[^.]+\..+"/>
+                    </restriction>
+                </simpleType>
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="Service">
+        <sequence>
+            <element name="name" type="string"/>
+            <element name="url" type="string"/>
+        </sequence>
+    </complexType>
+</schema>
