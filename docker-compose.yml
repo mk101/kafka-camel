@@ -81,3 +81,16 @@ services:
       - KAFKA_CLUSTERS_1_NAME=kafka2
       - KAFKA_CLUSTERS_1_BOOTSTRAPSERVERS=broker2:39092
       - KAFKA_CLUSTERS_1_ZOOKEEPER=localhost:32181
+
+  kafka-setup:
+    image: confluentinc/cp-kafka:7.2.2
+    hostname: kafka-setup
+    container_name: kafka1-setup
+    depends_on:
+      - broker1
+      - broker2
+      - kafka-ui
+    environment:
+      KAFKA_BROKER_ID: ignored
+      KAFKA_ZOOKEEPER_CONNECT: ignored
+    command: sh -c "sleep 20 && kafka-topics --create --if-not-exists --bootstrap-server broker1:29092 --topic requests && kafka-topics --create --if-not-exists --bootstrap-server broker1:29092 --topic status_topic && kafka-topics --create --if-not-exists --bootstrap-server broker2:39092 --topic results"
