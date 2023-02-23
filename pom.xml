@@ -142,21 +142,6 @@
                     <xjbSources>
                         <xjbSource>src/main/resources/xsd/global.xjb</xjbSource>
                     </xjbSources>
-
-<!--                    FIXME: not working-->
-                    <extension>true</extension>
-                    <args>
-                        <arg>-XtoString</arg>
-<!--                        <arg>-Xequals</arg>-->
-<!--                        <arg>-XhashCode</arg>-->
-                    </args>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.jvnet.jaxb2_commons</groupId>
-                            <artifactId>jaxb2-basics</artifactId>
-                            <version>${jvnet.jaxb2_commons.version}</version>
-                        </plugin>
-                    </plugins>
                 </configuration>
                 <dependencies>
                     <dependency>
