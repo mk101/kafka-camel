@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Session xmlns="/jaxb/gen">
+    <user>
+        <id>1</id>
+        <name>Test Testov</name>
+        <email>test@test.ru</email>
+    </user>
+    <service>
+        <name>Test service</name>
+        <url>https://127.0.0.1:80/api/v1/test</url>
+    </service>
+    <start>2023-02-24T11:50:42.344+03:00</start>
+    <end>2023-02-24T12:27:11.557+03:00</end>
+</Session>
