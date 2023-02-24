@@ -35,7 +35,9 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker1:29092,PLAINTEXT_HOST://localhost:9092
       KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
-      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 3
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
 
   zookeeper2:
     image: confluentinc/cp-zookeeper:7.2.2
@@ -61,7 +63,9 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker2:39092,PLAINTEXT_HOST://localhost:19092
       KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
-      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 3
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
 
   kafka-ui:
     image: provectuslabs/kafka-ui
@@ -93,4 +97,4 @@ services:
     environment:
       KAFKA_BROKER_ID: ignored
       KAFKA_ZOOKEEPER_CONNECT: ignored
-    command: sh -c "sleep 20 && kafka-topics --create --if-not-exists --bootstrap-server broker1:29092 --topic requests && kafka-topics --create --if-not-exists --bootstrap-server broker1:29092 --topic status_topic && kafka-topics --create --if-not-exists --bootstrap-server broker2:39092 --topic results"
+    command: sh -c "sleep 20 && kafka-topics --create --if-not-exists --bootstrap-server broker1:29092 --partitions 1 --replication-factor 1 --topic requests && kafka-topics --create --if-not-exists --bootstrap-server broker1:29092 --partitions 1 --replication-factor 1 --topic status_topic && kafka-topics --create --if-not-exists --bootstrap-server broker2:39092 --partitions 1 --replication-factor 1 --topic results"
