@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="create-table-sessions" author="Maxim Kolesov">
+        <createTable tableName="sessions">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="userId" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="serviceUrl" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
