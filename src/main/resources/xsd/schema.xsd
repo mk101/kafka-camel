@@ -7,6 +7,7 @@
     <element name="Session" type="userns:Session"/>
     <element name="User" type="userns:User"/>
     <element name="Service" type="userns:Service"/>
+    <element name="Status" type="userns:Status"/>
 
     <complexType name="Session">
         <sequence>
@@ -35,6 +36,21 @@
         <sequence>
             <element name="name" type="string"/>
             <element name="url" type="string"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="Status">
+        <sequence>
+            <element name="statusType">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="ERROR"/>
+                        <enumeration value="SUCCESS"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="message" type="string"/>
+            <element name="time" type="dateTime" />
         </sequence>
     </complexType>
 </schema>
