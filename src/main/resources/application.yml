@@ -21,7 +21,7 @@ spring:
       hibernate:
         globally_quoted_identifiers: true
         format_sql: true
-    show-sql: true
+#    show-sql: true
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
