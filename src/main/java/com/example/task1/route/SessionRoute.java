@@ -17,15 +17,18 @@ public class SessionRoute extends RouteBuilder {
     private final SessionMapper mapper;
 
     @Override
-    public void configure() throws Exception {
+    public void configure() {
         onException(Exception.class)
                 .handled(true)
                 .log(LoggingLevel.ERROR, "Something went wrong")
                 .setHeader("MessageType", simple("ERROR"))
-                .to("direct:status");
+                .setBody(exceptionMessage())
+                .to("direct:status")
+                .markRollbackOnly();
 
         from("direct:session")
                 .routeId("Session processing")
+                .transacted()
                 .to("direct:save_to_db")
                 .to("direct:save_to_kafka")
                 .setHeader("MessageType", simple("SUCCESS"))
