@@ -22,17 +22,14 @@ public class StatusRoute extends RouteBuilder {
                     .otherwise()
                         .to("micrometer:counter:app.message.success")
                         .log("Message saved in database and kafka")
+                        .setBody(simple("Message saved in database and kafka"))
                     .end()
                     .process(exchange -> {
                         String message = exchange.getIn().getBody(String.class);
 
                         Status status = new Status();
                         status.setStatusType(exchange.getIn().getHeader("MessageType", String.class));
-                        if (status.getStatusType().equals("SUCCESS")) {
-                            status.setMessage("Message saved in database and kafka");
-                        } else {
-                            status.setMessage(message);
-                        }
+                        status.setMessage(message);
                         status.setTime(Calendar.getInstance());
 
                         exchange.getMessage().setBody(status, Status.class);
