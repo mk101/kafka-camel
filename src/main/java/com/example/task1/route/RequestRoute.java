@@ -21,6 +21,8 @@ public class RequestRoute extends RouteBuilder {
 
             from("kafka:requests?brokers={{kafka.broker1.host}}&groupId=camel")
                     .routeId("Kafka requests")
+                    .to("micrometer:counter:app.message.received")
+                    .to("micrometer:timer:app.message.timer?action=start")
                     .log("Message received from Kafka : ${body}")
                     .log("    on the topic ${headers[kafka.TOPIC]}")
                     .log("    on the partition ${headers[kafka.PARTITION]}")

@@ -17,8 +17,10 @@ public class StatusRoute extends RouteBuilder {
             from("direct:status")
                     .choice()
                     .when(header("MessageType").contains("ERROR"))
+                        .to("micrometer:counter:app.message.failed")
                         .log(LoggingLevel.ERROR, "${body}")
                     .otherwise()
+                        .to("micrometer:counter:app.message.success")
                         .log("Message saved in database and kafka")
                     .end()
                     .process(exchange -> {
@@ -37,7 +39,8 @@ public class StatusRoute extends RouteBuilder {
                     })
                     .marshal(jaxb)
                     .setHeader(KafkaConstants.KEY, simple("camel"))
-                    .to("kafka:status_topic?brokers={{kafka.broker1.host}}");
+                    .to("kafka:status_topic?brokers={{kafka.broker1.host}}")
+                    .to("micrometer:timer:app.message.timer?action=stop");
         }
     }
 }
