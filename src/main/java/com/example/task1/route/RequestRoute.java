@@ -5,10 +5,14 @@ import jakarta.xml.bind.UnmarshalException;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.converter.jaxb.JaxbDataFormat;
 import org.apache.camel.spi.DataFormat;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RequestRoute extends RouteBuilder {
+    @Value("${kafka.broker1.camel-request-path}")
+    private String path;
+
     @Override
     public void configure() throws Exception {
 
@@ -19,7 +23,7 @@ public class RequestRoute extends RouteBuilder {
                     .setBody(simple("Something went wrong while unmarshalling"))
                     .to("direct:status");
 
-            from("kafka:requests?brokers={{kafka.broker1.host}}&groupId=camel")
+            from(path)
                     .routeId("Kafka requests")
                     .to("micrometer:counter:app.message.received")
                     .to("micrometer:timer:app.message.timer?action=start")

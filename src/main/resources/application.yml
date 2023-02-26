@@ -5,6 +5,7 @@ camel:
 kafka:
   broker1:
     host: 'localhost:9092'
+    camel-request-path: kafka:requests?brokers={{kafka.broker1.host}}&groupId=camel
   broker2:
     host: 'localhost:19092'
 
