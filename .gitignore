@@ -33,3 +33,5 @@ build/
 .vscode/
 
 prometheus/
+/src/main/java/META-INF/
+/src/main/java/com/example/task1/generated/
